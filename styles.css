@@ -1,0 +1,254 @@
+.popup { 
+    position: fixed; /* reste au-dessus même si on scrolle */
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex; /* pour centrer l'image */
+    justify-content: center; /* centre l'image horizontalement */
+    align-items: center;  /* centre l'image verticalement */
+    background-color: rgba(0, 0, 0, 0.7); /* fond sombre semi-transparent */
+    z-index: 1000; /* au-dessus de tout le reste */
+}
+
+.popup-visible {
+    display: flex; /* affiche la popup */
+}
+
+.popup-invisible {
+    display: none; /* cache la popup */
+}
+
+.popup img {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 20px black;
+  border-radius: 0px;
+  border: 1px solid #5a5f59;
+  
+}
+
+.image-cliquable {
+  max-width: 100%;          /* images responsives */
+  display: block;           /* évite les espaces en dessous des images */
+  margin: 20px auto;        /* espace autour des images et centre */
+  border-radius: 12px;            /* coins légèrement arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* ombre légère */
+  border: 3px solid #000000;          /* bordure sombre */
+  
+}
+
+.image-cliquable:hover {
+  transform: scale(1.05);  /* agrandit un peu au survol */
+  transition: transform 0.2s; /* animation douce */
+  cursor: zoom-in;    /* indique que c'est cliquable */
+}
+
+footer {
+     display: flex;
+     justify-content: center;
+     margin-top:40px;
+     padding:10px;
+     font-size:13px;
+     color:#869b74;
+     text-align: center;
+}
+
+.cache-fenetre {
+  position: absolute; 
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+
+}
+
+body {
+  max-width: 900px;          /* largeur maximale de la page */
+  margin: auto;            /* centre la page */     
+  font-family: Arial, sans-serif;
+  background-color: #223026; /* couleur de fond claire */
+  color: #000000;           /* couleur du texte sombre */
+}
+
+h1 {
+  text-align: center;        /* centre le titre */
+  color: #869b74;          /* couleur du titre */
+  margin-top: 30px;         /* espace au-dessus du titre */
+  font-size: 50px;          /* taille de police plus grande */
+}
+
+h2 {
+  color: #000000;          /* couleur des sous-titres */
+  margin-top: 10px;        /* espace au-dessus des sous-titres */
+  font-size: 29px;         /* taille de police plus grande */
+}
+.liste-images section {
+  background-color: #869b74; /* fond légèrement différent pour chaque section */;
+  border-radius: 12px;     /* coins légèrement arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* ombre légère */
+  overflow-wrap: break-word;     /* casse les mots trop longs */
+  word-break: break-all;         /* au besoin, casse n'importe où */
+  max-width: 500px;   /* avant 900 etc. */
+  margin: 80px auto;  /* auto pour centrer, moins de marge */
+  padding: 30px;      /* moins d’espace intérieur */
+}
+
+.liste-images p {
+  line-height: 1.6;         /* améliore la lisibilité des paragraphes */
+  margin: 0 20px 20px 20px; /* espace autour des paragraphes */
+}
+
+.liste-images a {
+  color: #32608f;           /* couleur des liens */
+  text-decoration: none;   /* pas de soulignement */  
+
+}
+.liste-images a:hover {
+  text-decoration: underline; /* soulignement au survol */
+}
+
+#aperçu-image {
+  max-width: 100%;          /* images responsives */
+  display: block;           /* évite les espaces en dessous des images */
+  margin: 20px auto;        /* espace autour des images et centre */
+  border-radius: 12px;            /* coins légèrement arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* ombre légère */
+  border: 3px solid #000000;          /* bordure sombre */
+}
+
+
+#aperçu-singe {
+  background-color: #869b74;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  display: none;           /* caché par défaut */              
+  overflow-wrap: break-word;     /* casse les mots trop longs */
+  word-break: break-all;         /* au besoin, casse n'importe où */
+  max-width: 500px;   /* avant 900 etc. */
+  margin: 80px auto;  /* auto pour centrer, moins de marge */
+  padding: 30px;      /* moins d’espace intérieur */
+  
+}
+
+#aperçu-singe h2 {
+  color: #000000;          /* couleur des sous-titres */
+  margin-top: 10px;        /* espace au-dessus des sous-titres */
+  font-size: 29px;         /* taille de police plus grande */
+}
+
+#aperçu-singe p {
+  line-height: 1.6;         /* améliore la lisibilité des paragraphes */
+  margin: 0 20px 20px 20px; /* espace autour des paragraphes */
+}
+
+#aperçu-singe a {
+  color: #0066cc;           /* couleur des liens */
+  text-decoration: none;   /* pas de soulignement */  
+
+}
+
+#aperçu-singe a:hover {
+  text-decoration: underline; /* soulignement au survol */
+}
+
+
+#mentions-legales h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+#mentions-legales p {
+  margin: 8px 0;
+  color: #869b74;
+}
+
+#mentions-legales a {
+  color: #a8d5a8;
+  
+}
+
+#form-singe {
+  background-color: #869b74; /* fond légèrement différent pour chaque section */;
+  border-radius: 12px;     /* coins légèrement arrondis */
+  margin: 80px;            /* espace autour des sections */
+  padding: 50px;           /* espace intérieur des sections */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8); /* ombre légère */
+  max-width: 500px;   /* avant 900 etc. */
+  margin: 80px auto;  /* auto pour centrer, moins de marge */
+  padding: 30px;      /* moins d’espace intérieur */
+   
+  
+}
+
+#form-singe label {
+  display: block;
+  font-weight: bold; 
+}
+
+#form-singe input[type="text"],
+#form-singe input[type="url"],
+#form-singe textarea,
+#form-singe input[type="email"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 2px solid #223026;
+  background-color: #c4ccbc;
+  font-family: inherit;
+  outline: none;
+}
+
+#form-singe input[type="button"] {
+  max-width: 100%;
+  padding: 10px 20px;
+  background-color: #405245;
+  color: #f5f5f5;
+  border-radius: 9px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  letter-spacing: 1px;
+  border: 3px solid #223026;
+  margin-left: auto;
+  display: block;      /* le bloc prend toute la ligne */
+}
+
+#form-singe input[type="button"]:hover {
+  background-color: #28352c;
+}
+
+#form-singe textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+#form-singe input:disabled {
+  background-color: #b5b8b3;  /* plus gris/vert, pour montrer que c’est bloqué */
+  color: #777;                /* texte un peu grisé */
+  border-color: #777;      /* bordure grisée */
+  cursor: not-allowed;
+}
+
+.aide-credit {
+  font-size: 0.85rem;
+  color: #223026;
+  opacity: 0.8;
+  font-size: 0.8rem;
+  color: #223026;
+  text-align: left;       /* bien aligné à gauche */
+}
+
+.texte-choix {
+  font-style: italic;
+}
+.texte-choix strong {
+  font-style: normal;  
+}

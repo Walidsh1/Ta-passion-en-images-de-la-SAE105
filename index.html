@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À la découverte des singes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>À la découverte des singes</h1>
+    <div class="liste-images"></div>
+
+    <script src="data.js"></script>
+    <!-- <script>
+        // let numCase = 0;
+        // images.forEach(function afficherImage(image) {
+        //   let titre = titles[numCase];
+        //   let description = descriptionsImages[numCase];
+        //   console.log( image + " : " + titre);
+        //   document.querySelector(".liste-images").innerHTML += "<section><h2><em>" + titre + '</em></h2>' +
+        //   ' <img src=' + image + ' alt= " Photographie du singe : ' + titre + '"><p>' + description + "</p></section>";
+        // numCase++ ;
+        // console.log(numCase);
+        // });
+
+    // data.forEach(function(element) {
+    // let titre = element.titre;
+    // let image = element.image;
+    // let description = element.description;
+    // let choix = element.choix;
+    // let credit = element.credit;
+    // let urlImage = element.urlImage;
+    // let urlSource = element.urlSource;
+    // let urlAuteur = element.urlAuteur;
+    // let nomAuteur = element.nomAuteur;
+    // let nomSite = element.nomSite;
+
+//     document.querySelector(".liste-images").innerHTML +=
+//       "<section><h2><em>" + titre + "</em></h2>" +
+//       "<img src='" + image + "' alt='Photographie du singe : " + titre + "'>" +
+//       "<p>" + description + "</p>"+"<p><strong>Pourquoi ce choix ?  </strong> " + choix + "</p>" + "<p><strong>Crédit : </strong><a href='" + urlImage + "' target='_blank'>Photo</a> par <a href='" + urlAuteur + "' target='_blank'>" + nomAuteur + "</a>, <a href='" + urlSource + "' target='_blank'>"+ nomSite +"</a></p></section>";
+//  }); -->
+
+<script>
+
+
+// Chargement des données depuis le fichier JSON images.json
+fetch('images.json?v=4').then(function(response) {
+  // Conversion du texte JSON en tableau d'objets JavaScript
+    response.json().then(function(data) {
+
+// Parcours de chaque donnée du tableau data
+      data.forEach(function(element) {
+        // Récupération des propriétés de l'objet
+        let titre = element.titre;
+        let image = element.image;
+        let description = element.description;
+        let choix = element.choix;
+        let urlImage = element.urlImage;
+        let urlSource = element.urlSource;
+        let urlAuteur = element.urlAuteur;
+        let nomAuteur = element.nomAuteur;
+        let nomSite = element.nomSite;
+
+        // Construction du bloc HTML pour un singe
+        document.querySelector(".liste-images").innerHTML +=
+          "<section><h2><em>" + titre + "</em></h2>" +
+          "<img class='image-cliquable' src='" + image + "' alt=\"Photographie du singe : " + titre + "\">" +
+          "<p>" + description + "</p>" +
+          "<p class='texte-choix'><strong>Pourquoi ce choix ? </strong>" + choix + "</p>" +
+          "<p><a href='" + urlImage + "' target='_blank'>Photo</a> par " +
+          "<a href='" + urlAuteur + "' target='_blank'>" + nomAuteur + "</a>, " +
+          "<a href='" + urlSource + "' target='_blank'>" + nomSite + "</a></p></section>";
+      });
+
+// Popup pour agrandir les images
+let popup = document.querySelector('.popup');
+let popupImg = popup.querySelector('img');
+let imageCliquables = document.querySelectorAll('.image-cliquable');
+
+imageCliquables.forEach(function(image) {
+  image.addEventListener('click', function (e) {
+    console.log(e.target) // Q8 vérification de l'image cliquée
+    let nouvelleSrc = e.target.src; // Récupère la source de l'image cliquée      
+    popupImg.src = nouvelleSrc; // Met à jour la source de l'image dans la popup
+     popupImg.alt = e.target.alt; // copie aussi l'alt (pour accessibilité)
+    popup.classList.remove('popup-invisible');
+    popup.classList.add('popup-visible');
+  });
+}); 
+
+let boutonFermer = document.querySelector('.cache-fenetre');
+boutonFermer.addEventListener('click', function() {
+  popup.classList.remove('popup-visible');
+  popup.classList.add('popup-invisible');
+});
+  }); // ← FIN du fetch('images.json'
+let aperçuTitre = document.querySelector("#aperçu-titre");
+let valeurTitre = document.querySelector("#titre");
+
+let aperçuDescription = document.querySelector("#aperçu-description");
+let valeurDescription = document.querySelector("#description");
+
+let aperçuImage = document.querySelector("#aperçu-image");
+let valeurUrlImage = document.querySelector("#url-image");
+
+let aperçuChoix = document.querySelector("#aperçu-choix");
+let valeurChoix = document.querySelector("#choix");
+
+let apercuCredit   = document.querySelector("#aperçu-credit");
+let urlImageCredit = document.querySelector("#url-credit-image");
+let urlAuteur      = document.querySelector("#auteur-credit");
+let urlSite        = document.querySelector("#site-credit");
+let nomAuteur      = document.querySelector("#nom-auteur");   // nouveau champ
+let nomSite        = document.querySelector("#nom-site");     // nouveau champ
+
+
+valeurTitre.addEventListener("keyup", function(event) {
+aperçuTitre.textContent = valeurTitre.value;
+console.log("Titre saisi :", valeurTitre.value);
+aperçuImage.alt = "Image du singe : " + valeurTitre.value;
+});
+valeurDescription.addEventListener("keyup", function(event) {
+  aperçuDescription.textContent = valeurDescription.value;
+});
+valeurUrlImage.addEventListener("keyup", function(event) {
+  aperçuImage.src = valeurUrlImage.value;
+  });
+
+valeurChoix.addEventListener("keyup", function(event) {
+ aperçuChoix.innerHTML = "<strong>Pourquoi ce choix ?</strong> " + valeurChoix.value;
+  });
+
+function majCredit() {
+  // 1) Photo
+  let textePhoto;
+  if (urlImageCredit.value.trim() !== "") {
+    textePhoto = "<a href='" + urlImageCredit.value + "' target='_blank'>Photo</a>";
+  } else {
+    textePhoto = "Photo";
+  }
+
+  // 2) Auteur
+  let texteAuteur = "";
+  if (nomAuteur.value.trim() !== "") {
+    if (urlAuteur.value.trim() !== "") {
+      texteAuteur = " par <a href='" + urlAuteur.value + "' target='_blank'>" +
+                    nomAuteur.value + "</a>";
+    } else {
+      texteAuteur = " par " + nomAuteur.value;
+    }
+  }
+
+  // 3) Site
+  let texteSite = "";
+  if (nomSite.value.trim() !== "") {
+    if (urlSite.value.trim() !== "") {
+      texteSite = ", <a href='" + urlSite.value + "' target='_blank'>" +
+                  nomSite.value + "</a>";
+    } else {
+      texteSite = ", " + nomSite.value;
+    }
+  }
+
+  apercuCredit.innerHTML = textePhoto + texteAuteur + texteSite;
+}
+
+[urlImageCredit, urlAuteur, urlSite, nomAuteur, nomSite].forEach(function(champ) {
+  champ.addEventListener("keyup", majCredit);
+});
+function majActivationUrls() {
+  // On vérifie si les DEUX noms sont remplis
+  let nomsOK = nomAuteur.value.trim() !== "" && nomSite.value.trim() !== "";
+
+  // Si nomsOK == true → disabled = false
+  // Si nomsOK == false → disabled = true
+  urlImageCredit.disabled = !nomsOK;
+  urlAuteur.disabled      = !nomsOK;
+  urlSite.disabled        = !nomsOK;
+}
+
+// On relance la vérif à chaque frappe dans les champs "nom"
+nomAuteur.addEventListener("keyup", majActivationUrls);
+nomSite.addEventListener("keyup", majActivationUrls);
+
+
+
+let form   = document.querySelector("#form-singe");
+let apercu = document.querySelector("#aperçu-singe");
+let boutonEnvoyer = document.querySelector("#envoyer");
+
+boutonEnvoyer.addEventListener("click", function () {
+  console.log("clic OK");
+  const titreInput       = document.querySelector("#titre");
+  const descriptionInput = document.querySelector("#description");
+  const choixInput       = document.querySelector("#choix");
+  const emailInput       = document.querySelector("#email");
+
+   if (
+    titreInput.value.trim() === "" ||
+    descriptionInput.value.trim() === "" ||
+    choixInput.value.trim() === ""
+  ) {
+    alert("Merci de remplir tous les champs.");
+    return; // on s'arrête, pas d'aperçu
+  }
+
+
+let urlApi = "https://gambette.butmmi.o2switch.site/api.php" +
+             "?format=json" +
+             "&login=walid.el-shennawy" +
+             "&email=philippe.gambette@univ-eiffel.fr" +
+             "&message=Je%20n%20ai%20aucune%20suggestion%20de%20musique%20mais%20je%20vous%20felicite%20pour%20votre%20site%20web%20de%20selection%20musicale%20que%20je%20trouve%20tres%20reussi%20!";
+
+
+  // 1. Récupérer les valeurs du formulaire
+  let titre       = document.querySelector("#titre").value;
+  let description = document.querySelector("#description").value;
+  let choix       = document.querySelector("#choix").value;
+  let urlImage    = document.querySelector("#url-image").value;
+  let adresseEmail = document.querySelector("#email").value;
+
+  // On construit un message texte à partir de ces valeurs
+  let messageTexte =
+    "Titre : " + titre +
+    "  Description : " + description +
+    " Pourquoi ce choix ? " + choix +
+    " URL de l'image : " + urlImage;
+  
+  // On encode le message pour l’URL
+  let messageEncode = encodeURIComponent(messageTexte);
+
+  // 2. Construire l’URL 
+  let urlVisitee =
+ "https://gambette.butmmi.o2switch.site/api.php" +
+  "?format=json" +
+  "&login=walid.el-shennawy" +
+  "&email=" + encodeURIComponent(adresseEmail) +
+  "&message=" + messageEncode;
+
+  // Q11 : on appelle l’API avec fetch
+ fetch(urlVisitee).then(function (response) {
+  response.json().then(function (data) {
+    console.log("Réponse reçue : ");
+    console.log(data); // voir status: "success"
+    form.style.display = "none";
+    apercu.style.display = "block";
+    localStorage.setItem("ficheEnvoyee", "oui");
+  });
+});
+
+
+if (localStorage.getItem("ficheEnvoyee") === "oui") {
+  form.style.display = "none";
+  apercu.style.display = "block";
+}
+
+    });
+  });
+</script>
+
+
+ <div class="popup popup-invisible">
+  <button class="cache-fenetre">X</button>
+  <img src="images/image1.jpg" alt="Image agrandie">
+ </div>
+
+<section id="fiche-aperçu">
+
+  <form id="form-singe">
+    <h2> Crée ta fiche avec le singe de ton choix </h2>
+    <label for="titre">Nom du singe :</label><br>
+    <input type="text" id="titre" name="titre"><br><br>
+    <label for="url-image">Url de l'image :</label><br>
+    <input type="url" id="url-image" name="url-image" placeholder="https://exemple.com/photo-pexels.jpg"><br><br>
+    <label for="description">Description :</label><br>
+    <textarea id="description" name="description" rows="10" cols="50"></textarea> <br><br>
+    <label for="choix">Pourquoi ce choix ?</label><br>
+    <textarea id="choix" name="choix" rows="10" cols="50"></textarea> <br><br>
+    <label for="nom-auteur">Nom de l'auteur :</label><br>
+    <input type="text" id="nom-auteur" name="nom-auteur"><br><br>
+    <label for="nom-site">Nom du site :</label><br>
+    <input type="text" id="nom-site" name="nom-site"><br><br>
+    <label for="credit">Url crédit :</label><br>
+    <p class="aide-credit"> Vous pouvez remplir ces champs uniquement lorsque le nom de l'auteur et le nom du site seront remplis.</p>
+    <input type="text" id="url-credit-image" name="url-credit-image" disabled placeholder="lien de l'image utilisé précedemment">
+    <label for="auteur-credit"></label>
+    <input type="text" id="auteur-credit" name="auteur-credit"disabled placeholder="lien de la page de l'auteur">
+    <label for="site-credit"></label>
+    <input type="text" id="site-credit" name="site-credit" disabled placeholder="url site de l'image "><br><br>
+    <label for="email">Ton adresse email :</label><br>
+    <input type="email" id="email" name="email"><br><br>
+    <label for="envoyer"></label>
+    <input type="button" id="envoyer" value="Envoyer">
+  </form>
+
+  <section id="aperçu-singe">
+  <h2 id="aperçu-titre">Nom du singe</h2>
+  <img id="aperçu-image" class="image-cliquable" alt="Image du singe proposé">
+  <p id="aperçu-description">Ta description de ...</p>
+  <p id="aperçu-choix"><strong>Pourquoi ce choix ?</strong></p>
+  <p id="aperçu-credit">[Photo] par [Auteur], [Site]</p>
+  </section>
+
+</section>
+
+
+ <footer>
+  <section id="mentions-legales">
+  <h2>Mentions légales</h2>
+  <p>Site réalisé dans le cadre d'un projet universitaire, sans but commercial.</p>
+  <p>Les messages envoyés via ce site sont stockés sur les serveurs de l'Université Gustave Eiffel (France) via une API. 
+     Ils peuvent contenir des données personnelles (adresse email, adresse IP).</p>
+  <p>La personne responsable du traitement est Philippe Gambette (<a href="mailto:philippe.gambette@univ-eiffel.fr">philippe.gambette@univ-eiffel.fr</a>). 
+     Vous pouvez le contacter pour demander l'accès ou la suppression de ces données.</p>
+<section id></section><br><br>
+  <p>Images : Unsplash (licence libre) | Site : Walid EL SHENNAWY © 2025 </p>
+  </section><br><br>
+</footer>
+
+</body>
+</html>
